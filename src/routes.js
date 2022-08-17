@@ -6,12 +6,11 @@ import Movies from './pages/Movies'
 export default function RoutesApp() {
   return (
     <BrowserRouter>
-      <Header>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movies/:id" element={<Movies />} />
-        </Routes>
-      </Header>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/movies/:id" element={<Movies />} />
+      </Routes>
     </BrowserRouter>
   )
 }
