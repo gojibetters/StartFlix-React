@@ -12,12 +12,11 @@ export default function Home() {
       const response = await api.get('movie/now_playing', {
         params: {
           api_key: process.env.REACT_APP_API_KEY,
-          language: 'pt-BR',
+          language: 'en-US',
           page: 1
         }
       })
       setMovies(response.data.results)
-      console.log(response.data.results)
       setLoading(false)
     }
     loadMovies()
@@ -39,7 +38,7 @@ export default function Home() {
                   src={`https://image.tmdb.org/t/p/original/${movies.backdrop_path}`}
                   alt={movies.title}
                 />
-                <Link to={`/movies/${movies.id}`}>Acessar</Link>
+                <Link to={`/movies/${movies.id}`}>Access</Link>
               </article>
             )
           })}

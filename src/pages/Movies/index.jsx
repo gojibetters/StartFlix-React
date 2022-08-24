@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import api from '../../services/api'
 import './movies.css'
+import { toast } from 'react-toastify'
 
 function Movies() {
   const { id } = useParams()
   const [movies, setMovies] = useState({})
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const navigation = useNavigate()
 
   useEffect(() => {
     async function loadMovies() {
@@ -18,16 +20,36 @@ function Movies() {
           }
         })
         .then(response => {
-          console.log(response)
           setMovies(response.data)
           setLoading(false)
         })
         .catch(() => {
-          console.log('Movie not found')
+          toast.warn('Movie not found!')
+
+          navigation('/', { replace: true })
+          return
         })
     }
     loadMovies()
   }, [])
+
+  function saveMovie() {
+    const localListMovies = localStorage.getItem('@movies')
+    let savedMovies = JSON.parse(localListMovies) || []
+
+    const hasMovie = savedMovies.some(
+      savedMovies => savedMovies.id == movies.id
+    )
+
+    if (hasMovie) {
+      toast.warn('This movie already is on your list!')
+      return
+    }
+
+    savedMovies.push(movies)
+    localStorage.setItem('@movies', JSON.stringify(savedMovies))
+    toast.info('Saved movie')
+  }
 
   if (loading) {
     return <div class="lds-dual-ring"></div>
@@ -40,11 +62,12 @@ function Movies() {
         src={`https://image.tmdb.org/t/p/original/${movies.backdrop_path}`}
         alt={movies.title}
       />
-      <h3>Sinopse</h3>
+      <h3>Synopsis</h3>
       <p>{movies.overview}</p>
-      <strong>Avaliação: {movies.vote_average}/10</strong>
+      <strong>Rating: {movies.vote_average}/10</strong>
       <div className="area-buttons">
-        <button>Salvar</button>
+        <button onClick={saveMovie}>Salvar</button>
+
         <button>
           <a
             target={'_blank'}

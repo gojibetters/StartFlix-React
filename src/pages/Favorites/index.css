@@ -1,0 +1,49 @@
+.fav-movies {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fav-movies h1 {
+  margin-bottom: 14px;
+}
+
+.fav-movies span {
+  font-size: 18px;
+}
+
+.fav-movies ul {
+  width: 720px;
+}
+
+.fav-movies ul li {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.fav-movies div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fav-movies div a {
+  text-decoration: none;
+  color: #116feb;
+  margin-right: 14px;
+}
+
+.fav-movies img {
+  width: 300px;
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  margin-top: 14px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
